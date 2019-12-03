@@ -1,17 +1,18 @@
 package com.company;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Travel {
     private String destination;
-    private String arrival;
-    private String departure;
+    private LocalDateTime arrival;
+    private LocalDateTime departure;
     private boolean isInternational;
     private Vehicle bus;
 
     public Travel(){}
 
-    public Travel(String destination, String arrival, String departure, boolean isInternational, Vehicle bus) {
+    public Travel(String destination, LocalDateTime arrival, LocalDateTime departure, boolean isInternational, Vehicle bus) {
         this.destination = destination;
         this.arrival = arrival;
         this.departure = departure;
@@ -27,19 +28,19 @@ public class Travel {
         this.destination = destination;
     }
 
-    public String getArrival() {
+    public LocalDateTime getArrival() {
         return arrival;
     }
 
-    public void setArrival(String arrival) {
+    public void setArrival(LocalDateTime arrival) {
         this.arrival = arrival;
     }
 
-    public String getDeparture() {
+    public LocalDateTime getDeparture() {
         return departure;
     }
 
-    public void setDeparture(String departure) {
+    public void setDeparture(LocalDateTime departure) {
         this.departure = departure;
     }
 

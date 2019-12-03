@@ -2,8 +2,8 @@ package com.company;
 
 public class InternationBus extends Vehicle{
 
-    public InternationBus( int passengerCapacity, boolean isComfortBasic) {
-        super(false, passengerCapacity, isComfortBasic);
+    public InternationBus( int passengerCapacity) {
+        super(false, passengerCapacity, false);
     }
 
 

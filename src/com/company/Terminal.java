@@ -1,5 +1,7 @@
 package com.company;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Terminal {
@@ -33,5 +35,21 @@ public class Terminal {
     }
 
     public void departures(){
+
     }
+
+    public List<Platform> freePlatforms(LocalDateTime time){
+        List<Platform> freePlatforms = new ArrayList<>();
+
+        for (Platform platform:platforms) {
+            if(platform.getTravel() == null){
+                freePlatforms.add(platform);
+            }
+            if(time != platform.getTravel().getDeparture()){
+                freePlatforms.add(platform);
+            }
+        }
+        return platforms;
+    }
+
 }

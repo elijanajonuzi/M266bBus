@@ -1,9 +1,8 @@
 
 package com.company;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
+import java.time.*;
 
 public class Menu {
     private Scanner scanner = new Scanner(System.in);
@@ -58,6 +57,39 @@ public class Menu {
     }
 
     private void addTrip() {
+        System.out.println("ADD TRIP");
+        System.out.println("Is the trip international\n1:\tYes\n2:\tNo");
+        int international= checkInt();
+        System.out.println("Destination:");
+        String destination = scanner.nextLine();
+        System.out.println("Year departure:");
+        int yearD = checkInt();
+        System.out.println("Month departure:");
+        int monthD = checkInt();
+        System.out.println("Day departure:");
+        int dayD = checkInt();
+        System.out.println("Hour departure:");
+        int hourD = checkInt();
+        System.out.println("Minute departure:");
+        int minuteD = checkInt();
+        System.out.println("Year arrival:");
+        int yearA = checkInt();
+        System.out.println("Month arrival:");
+        int monthA = checkInt();
+        System.out.println("Day arrival:");
+        int dayA = checkInt();
+        System.out.println("Hour arrival:");
+        int hourA = checkInt();
+        System.out.println("Minute arrival:");
+        int minuteA = checkInt();
+
+        Platform platform =getAFreePlatform(LocalDateTime.of(yearD,monthD,dayD,hourD,minuteD));
+
+
+
+        if(international==1){
+
+        }
 
     }
 
@@ -69,8 +101,15 @@ public class Menu {
 
     }
 
-    private void listGrades() {
+    private Platform getAFreePlatform(LocalDateTime dateD, boolean isInternational){
+        List<Platform> platformList = busTerminal.freePlatforms(dateD);
+        for (Platform platform: platformList) {
+            if(platform.isSmall() != isInternational){
 
+            }
+
+        }
+        return platformList.get(0);
     }
 
 
@@ -111,15 +150,25 @@ public class Menu {
     }
 
     private List<Platform> generateData(){
-        InternationBus barcelona = new InternationBus(120, false);
-        InternationBus berlin = new InternationBus(150, false);
-        Bus basel = new Bus(40, true);
-        Bus bern = new Bus(50, true);
 
-        Travel barcelonaTravel= new Travel("barcelona","13:00", "02:00", true, barcelona );
-        Travel berlinTravel= new Travel("berlin","20:00", "10:00", true, barcelona);
-        Travel baselTravel= new Travel("basel","14:00", "12:00", true, basel);
-        Travel bernTravel= new Travel("bern","15:00", "12:00", true, bern);
+        LocalDateTime barcelonaArrival = LocalDateTime.of(2019, 12, 30, 10, 00);
+        LocalDateTime berlinArrival = LocalDateTime.of(2020, 1, 2, 15, 00);
+        LocalDateTime baselArrival = LocalDateTime.of(2020, 3, 15, 10, 00);
+        LocalDateTime bernArrival = LocalDateTime.of(2020, 5, 30, 10, 00);
+        LocalDateTime barcelonaDeparture = LocalDateTime.of(2019, 1, 2, 4, 00);
+        LocalDateTime berlinDeparture = LocalDateTime.of(2020, 12, 30, 10, 00);
+        LocalDateTime baselDeparture = LocalDateTime.of(2020, 3, 15, 8, 00);
+        LocalDateTime bernDeparture = LocalDateTime.of(2020, 5, 30, 8, 00);
+
+        InternationBus barcelona = new InternationBus(120);
+        InternationBus berlin = new InternationBus(150);
+        Bus basel = new Bus(40);
+        Bus bern = new Bus(50);
+
+        Travel barcelonaTravel= new Travel("barcelona", barcelonaArrival, barcelonaDeparture, true, barcelona );
+        Travel berlinTravel= new Travel("berlin",berlinArrival, berlinDeparture, true, barcelona);
+        Travel baselTravel= new Travel("basel",baselArrival, baselDeparture, true, basel);
+        Travel bernTravel= new Travel("bern",bernArrival, bernDeparture, true, bern);
 
         Platform platform1 = new Platform(1, 100, "spain-bus", barcelonaTravel);
         Platform platform2 = new Platform(2,80,"german-bus", berlinTravel);

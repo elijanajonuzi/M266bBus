@@ -1,12 +1,13 @@
 package com.company;
 
+import java.time.LocalDateTime;
+
 public class Platform {
     private int platformNumber;
     private double platformSize;
     private boolean isBusServiceInternational;
     private String busService;
     private boolean isSmall;
-    private boolean isOccupied;
     private Travel travel;
 
 
@@ -24,7 +25,6 @@ public class Platform {
             this.isBusServiceInternational = true;
             this.isSmall = false;
         }
-        this.isOccupied = isOccupied = true;
     }
 
     public Platform(int platformNumber, double platformSize, String busService, boolean isSmall){
@@ -32,13 +32,11 @@ public class Platform {
         this.platformSize = platformSize;
         this.busService = busService;
         this.isSmall = isSmall;
-        this.isOccupied  = false;
     }
     public Platform(int platformNumber, double platformSize, boolean isSmall){
         this.platformNumber = platformNumber;
         this.platformSize = platformSize;
         this.isSmall = isSmall;
-        this.isOccupied  = false;
     }
 
     public Platform(int platformNumber, double platformSize, boolean isBusServiceInternational, String busService, boolean isSmall, boolean isOccupied, Travel travel) {
@@ -47,7 +45,6 @@ public class Platform {
         this.isBusServiceInternational = isBusServiceInternational;
         this.busService = busService;
         this.isSmall = isSmall;
-        this.isOccupied = isOccupied;
         this.travel = travel;
     }
 
@@ -91,19 +88,18 @@ public class Platform {
         isSmall = small;
     }
 
-    public boolean isOccupied() {
-        return isOccupied;
-    }
-
-    public void setOccupied(boolean occupied) {
-        isOccupied = occupied;
-    }
-
     public Travel getTravel() {
         return travel;
     }
 
     public void setTravel(Travel travel) {
         this.travel = travel;
+    }
+
+    @Override
+    public String toString() {
+        return "platformNumber=" + platformNumber +
+                ", platformSize=" + platformSize +
+                ", busService='" + busService;
     }
 }
