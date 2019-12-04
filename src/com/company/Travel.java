@@ -20,36 +20,47 @@ public class Travel {
         this.bus = bus;
     }
 
+    public Travel(String destination, LocalDateTime arrival, LocalDateTime departure, boolean isInternational) {
+        this.destination = destination;
+        this.arrival = arrival;
+        this.departure = departure;
+        this.isInternational = isInternational;
+    }
+
     public String getDestination() {
         return destination;
     }
 
-    public void setDestination(String destination) {
+    public Travel setDestination(String destination) {
         this.destination = destination;
+        return this;
     }
 
     public LocalDateTime getArrival() {
         return arrival;
     }
 
-    public void setArrival(LocalDateTime arrival) {
+    public Travel setArrival(LocalDateTime arrival) {
         this.arrival = arrival;
+        return this;
     }
 
     public LocalDateTime getDeparture() {
         return departure;
     }
 
-    public void setDeparture(LocalDateTime departure) {
+    public Travel setDeparture(LocalDateTime departure) {
         this.departure = departure;
+        return this;
     }
 
     public boolean isInternational() {
         return isInternational;
     }
 
-    public void setInternational(boolean international) {
+    public Travel setInternational(boolean international) {
         isInternational = international;
+        return this;
     }
 
     public Vehicle getBus() {

@@ -7,9 +7,15 @@ import java.time.*;
 public class Menu {
     private Scanner scanner = new Scanner(System.in);
     private Terminal busTerminal= new Terminal();
+    Platform freePlatform = new Platform();
+
+    /**
+     * User menu
+     */
     public void menu() {
         busTerminal.setName("Zürich");
         busTerminal.setPlatforms(generateData());
+
 
         boolean remainInProgram = true;
 
@@ -56,10 +62,18 @@ public class Menu {
 
     }
 
+    /**
+     * This method gets credential to add a trip
+     */
     private void addTrip() {
+        InternationBus Ibus;
+        Bus bus;
+        boolean internationalBus=false;
+        Travel travel = new Travel();
         System.out.println("ADD TRIP");
         System.out.println("Is the trip international\n1:\tYes\n2:\tNo");
         int international= checkInt();
+        scanner.nextLine();
         System.out.println("Destination:");
         String destination = scanner.nextLine();
         System.out.println("Year departure:");
@@ -82,36 +96,62 @@ public class Menu {
         int hourA = checkInt();
         System.out.println("Minute arrival:");
         int minuteA = checkInt();
-
-        Platform platform =getAFreePlatform(LocalDateTime.of(yearD,monthD,dayD,hourD,minuteD));
-
-
-
+        System.out.println("how many seat are in the Bus?");
+        int capacity= checkInt();
         if(international==1){
-
+            internationalBus=true;
+            Ibus = new InternationBus(capacity);
+            travel.setBus(Ibus);
+        }
+        else {
+            internationalBus=false;
+            bus = new Bus(capacity);
+            travel.setBus(bus);
+        }
+        if(isFreePlatform(LocalDateTime.of(yearD,monthD,dayD,hourD,minuteD),internationalBus)){
+            System.out.println("there are free Platforms");
+            travel.setArrival(LocalDateTime.of(yearA,monthA,dayA,hourA,minuteA)).setDeparture(LocalDateTime.of(yearD,monthD,dayD,hourD,minuteD)).setDestination(destination).setInternational(internationalBus);
+            addTravel(travel);
         }
 
     }
 
+    /**
+     * this method lists all departures of a terminal
+     */
     private void listDepartures(){
-
-    }
-
-    private void listArrivals(){
-
-    }
-
-    private Platform getAFreePlatform(LocalDateTime dateD, boolean isInternational){
-        List<Platform> platformList = busTerminal.freePlatforms(dateD);
-        for (Platform platform: platformList) {
-            if(platform.isSmall() != isInternational){
-
-            }
-
+        for (Platform platform: busTerminal.getPlatforms()) {
+            System.out.println("platform number: " +platform.getPlatformNumber()+" "+platform.getTravel().getDeparture() + " " + platform.getTravel().getDestination());
         }
-        return platformList.get(0);
+
+    }
+    /**
+     * this method lists all arrivals of a terminal
+     */
+    private void listArrivals(){
+        for (Platform platform: busTerminal.getPlatforms()) {
+            System.out.println(platform.getPlatformNumber()+" "+platform.getTravel().getArrival() + " from: " + platform.getTravel().getDestination());
+        }
+    }
+    /**
+     * this method finds a free platform and saves it in field freePlatform
+     */
+    private boolean isFreePlatform(LocalDateTime dateD, boolean isInternational){
+        for (Platform platform: busTerminal.freePlatforms(dateD)) {
+            if(isInternational){
+                if (platform.isSmall()==false){
+                    freePlatform=platform;
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
+    /**
+     * this method checks if the user gives an Integer value
+     * @return
+     */
 
     private int checkInt() {
         int index = 0;
@@ -129,26 +169,22 @@ public class Menu {
         return index;
     }
 
-    private double checkDouble() {
-        double index = 0;
-        do {
-            index = 0;
-            try {
-
-                index = scanner.nextDouble();
-            } catch (java.util.InputMismatchException e) {
-                System.out.println("please give a valid number");
-                System.out.println("try again:");
-                index = 999;
-                scanner.nextLine();
+    /**
+     * this method adds a travel in the free platform
+     * @param travel
+     */
+    public void addTravel(Travel travel){
+        for (int i= 0; i<busTerminal.getPlatforms().size();i++) {
+            if(freePlatform.getPlatformNumber()==busTerminal.getPlatforms().get(i).getPlatformNumber()){
+                busTerminal.getPlatforms().get(i).setTravel(travel);
             }
-
-        } while (index == 999);
-        return index;
-
+        }
 
     }
 
+    /**
+     * this method generates all the data at the beginning
+     */
     private List<Platform> generateData(){
 
         LocalDateTime barcelonaArrival = LocalDateTime.of(2019, 12, 30, 10, 00);
@@ -170,10 +206,10 @@ public class Menu {
         Travel baselTravel= new Travel("basel",baselArrival, baselDeparture, true, basel);
         Travel bernTravel= new Travel("bern",bernArrival, bernDeparture, true, bern);
 
-        Platform platform1 = new Platform(1, 100, "spain-bus", barcelonaTravel);
-        Platform platform2 = new Platform(2,80,"german-bus", berlinTravel);
-        Platform platform3 = new Platform(3, 50, "swiss", baselTravel);
-        Platform platform4 = new Platform(4, 50, "swiss", bernTravel);
+        Platform platform1 = new Platform(1, 100, barcelonaTravel);
+        Platform platform2 = new Platform(2,80, berlinTravel);
+        Platform platform3 = new Platform(3, 50,  baselTravel);
+        Platform platform4 = new Platform(4, 50, bernTravel);
         Platform platform5 = new Platform(5, 100, false);
         Platform platform6 = new Platform(6, 50, true);
 
@@ -188,4 +224,6 @@ public class Menu {
         return platforms;
 
     }
+
+
 }

@@ -15,26 +15,6 @@ public abstract class Vehicle {
     public boolean isSingleDecker() {
         return isSingleDecker;
     }
-
-    public void setSingleDecker(boolean singleDecker) {
-        isSingleDecker = singleDecker;
-    }
-
-    public int getPassengerCapacity() {
-        return passengerCapacity;
-    }
-
-    public void setPassengerCapacity(int passengerCapacity) {
-        this.passengerCapacity = passengerCapacity;
-    }
-
-    public boolean isComfortBasic() {
-        return isComfortBasic;
-    }
-
-    public void setComfortBasic(boolean comfortBasic) {
-        isComfortBasic = comfortBasic;
-    }
 }
 
 

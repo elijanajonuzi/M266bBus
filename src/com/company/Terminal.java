@@ -42,10 +42,7 @@ public class Terminal {
         List<Platform> freePlatforms = new ArrayList<>();
 
         for (Platform platform:platforms) {
-            if(platform.getTravel() == null){
-                freePlatforms.add(platform);
-            }
-            if(time != platform.getTravel().getDeparture()){
+            if(!platform.isFree() || time != platform.getTravel().getDeparture()){
                 freePlatforms.add(platform);
             }
         }

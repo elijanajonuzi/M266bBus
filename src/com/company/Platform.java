@@ -6,15 +6,16 @@ public class Platform {
     private int platformNumber;
     private double platformSize;
     private boolean isBusServiceInternational;
-    private String busService;
     private boolean isSmall;
     private Travel travel;
+    private boolean isFree;
+
+    public Platform(){}
 
 
-    public Platform(int platformNumber, double platformSize, String busService,Travel travel){
+    public Platform(int platformNumber, double platformSize, Travel travel){
         this.platformNumber = platformNumber;
         this.platformSize = platformSize;
-        this.busService = busService;
 
         this.travel = travel;
         if(travel.getBus().isSingleDecker()==true){
@@ -25,27 +26,24 @@ public class Platform {
             this.isBusServiceInternational = true;
             this.isSmall = false;
         }
+         isFree=false;
     }
 
-    public Platform(int platformNumber, double platformSize, String busService, boolean isSmall){
-        this.platformNumber = platformNumber;
-        this.platformSize = platformSize;
-        this.busService = busService;
-        this.isSmall = isSmall;
-    }
-    public Platform(int platformNumber, double platformSize, boolean isSmall){
+    public Platform(int platformNumber, double platformSize, boolean isSmall) {
         this.platformNumber = platformNumber;
         this.platformSize = platformSize;
         this.isSmall = isSmall;
+        travel = new Travel();
+        isFree=true;
     }
 
-    public Platform(int platformNumber, double platformSize, boolean isBusServiceInternational, String busService, boolean isSmall, boolean isOccupied, Travel travel) {
+    public Platform(int platformNumber, double platformSize, boolean isBusServiceInternational, boolean isSmall, boolean isOccupied, Travel travel) {
         this.platformNumber = platformNumber;
         this.platformSize = platformSize;
         this.isBusServiceInternational = isBusServiceInternational;
-        this.busService = busService;
         this.isSmall = isSmall;
         this.travel = travel;
+        isFree=false;
     }
 
     public int getPlatformNumber() {
@@ -72,13 +70,6 @@ public class Platform {
         isBusServiceInternational = busServiceInternational;
     }
 
-    public String getBusService() {
-        return busService;
-    }
-
-    public void setBusService(String busService) {
-        this.busService = busService;
-    }
 
     public boolean isSmall() {
         return isSmall;
@@ -96,10 +87,18 @@ public class Platform {
         this.travel = travel;
     }
 
+    public boolean isFree() {
+        return isFree;
+    }
+
+    public Platform setFree(boolean free) {
+        isFree = free;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "platformNumber=" + platformNumber +
-                ", platformSize=" + platformSize +
-                ", busService='" + busService;
+                ", platformSize=" + platformSize ;
     }
 }
